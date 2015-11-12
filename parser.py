@@ -1,9 +1,11 @@
+import os
 from pprint import pprint
 
 import yaml
 from wtforms import fields
 
 from forms import Montecarlo
+from settings import BASE_DIR
 
 field_map = {
     'quantity': fields.FloatField,
@@ -21,7 +23,7 @@ def append_field(cls, name, field):
     return cls
 
 
-with open('/home/utkbansal/Downloads/config.yml', 'r') as f:
+with open(os.path.join(BASE_DIR, 'config.yml'), 'r') as f:
     doc = yaml.load(f)
 
     pprint(doc['montecarlo'])
@@ -32,8 +34,8 @@ with open('/home/utkbansal/Downloads/config.yml', 'r') as f:
         if 'property_type' in data[key]:
             print data[key].get('help')
             field_type = field_map[data[key]['property_type']](
-                default = data[key].get('default'),
-                description= data[key].get('help'),
+                default=data[key].get('default'),
+                description=data[key].get('help'),
             )
             print field_type
             append_field(Montecarlo, key, field_type)
