@@ -5,6 +5,7 @@ from handlers import BaseHandler
 from test import create_yaml
 import parser
 
+
 class MainHandler(BaseHandler):
     def get(self, *args, **kwargs):
         self.render('base.html')
@@ -25,11 +26,12 @@ class FormHandler(BaseHandler):
             data.seek(0)
             self.set_header('Content-Type', 'text/yaml')
             self.set_header('Content-Disposition',
-                            'attachment; filename=test.yml')
+                            'attachment; filename=config.yml')
             self.write(data.read())
             self.finish()
+        else:
+            return self.render('form.html', context={'form':form})
 
-        print form.errors
 
 
 if __name__ == '__main__':

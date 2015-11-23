@@ -1,8 +1,6 @@
-from pprint import pprint
+import StringIO
 
 import yaml
-
-import StringIO
 
 
 def create_yaml(data):
@@ -11,7 +9,7 @@ def create_yaml(data):
             'r') as f:
         doc = yaml.load(f)
 
-        pprint(doc['montecarlo'])
+        # pprint(doc['montecarlo'])
 
         yaml_dict = {}
 
@@ -21,10 +19,9 @@ def create_yaml(data):
             if key in data:
                 yaml_dict['montecarlo'][key] = data[key][0]
 
-        pprint(yaml_dict)
+        # pprint(yaml_dict)
 
         yaml_file = StringIO.StringIO()
         yaml_file.write(yaml.safe_dump(yaml_dict, default_flow_style=False))
 
         return yaml_file
-
