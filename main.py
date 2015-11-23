@@ -2,17 +2,18 @@ from tornado import ioloop, web
 
 from forms import ConfigForm
 from handlers import BaseHandler
+from parser import populate_form_class
 from test import create_yaml
-import parser
 
 
-class MainHandler(BaseHandler):
-    def get(self, *args, **kwargs):
-        self.render('base.html')
+# class MainHandler(BaseHandler):
+#     def get(self, *args, **kwargs):
+#         self.render('base.html')
 
 
 class FormHandler(BaseHandler):
     def get(self, *args, **kwargs):
+        populate_form_class()
         form = ConfigForm()
         self.render('form.html', context={'form': form})
 
@@ -30,14 +31,13 @@ class FormHandler(BaseHandler):
             self.write(data.read())
             self.finish()
         else:
-            return self.render('form.html', context={'form':form})
-
+            return self.render('form.html', context={'form': form})
 
 
 if __name__ == '__main__':
     application = web.Application([
-        (r'^/$', MainHandler),
-        (r'^/form$', FormHandler),
+        # (r'^/$', MainHandler),
+        (r'^/$', FormHandler),
     ],
         debug=True,
         autoreload=True,
