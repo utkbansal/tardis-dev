@@ -1,12 +1,13 @@
 import StringIO
+import os
 
 import yaml
 
+from settings import BASE_DIR
+
 
 def create_yaml(data):
-    with open(
-            '/home/utkbansal/PycharmProjects/tornado-tardis-form-test/config.yml',
-            'r') as f:
+    with open(os.path.join(BASE_DIR, 'config.yml'), 'r') as f:
         doc = yaml.load(f)
 
         # pprint(doc['montecarlo'])
